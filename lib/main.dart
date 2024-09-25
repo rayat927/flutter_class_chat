@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_class_chat_app/pages/ChatList.dart';
 import 'package:flutter_class_chat_app/pages/ChatThread.dart';
 import 'package:flutter_class_chat_app/pages/Login.dart';
+import 'package:flutter_class_chat_app/pages/Notes.dart';
 import 'package:flutter_class_chat_app/pages/Registration.dart';
 
 void main() async {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/chat_thread': (context) => ChatThread(),
         '/chat_list': (context) => ChatList(),
         '/register': (context) => Registration(),
+        '/notes': (context) => Notes(),
       },
     );
   }

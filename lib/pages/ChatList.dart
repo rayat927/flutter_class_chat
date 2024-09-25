@@ -39,6 +39,21 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+                accountName: Text(''),
+                accountEmail: Text('')),
+            ListTile(
+              title: Text('Notes'),
+              onTap: (){
+                Navigator.pushNamed(context, '/notes');
+              },
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text('Chat List'),
         centerTitle: true,
