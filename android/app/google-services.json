@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "450917465827",
+    "project_id": "test-project-20c0a",
+    "storage_bucket": "test-project-20c0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450917465827:android:20c23a6fc71d5ae66ccfd6",
+        "android_client_info": {
+          "package_name": "com.example.flutter_chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkpKBh72Pju5FLtXnLqvDLR9Rw4Pq_ayA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450917465827:android:1ff6560f7055b7d56ccfd6",
+        "android_client_info": {
+          "package_name": "com.promise.cognipath"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkpKBh72Pju5FLtXnLqvDLR9Rw4Pq_ayA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450917465827:android:8fb2692f4398ada16ccfd6",
+        "android_client_info": {
+          "package_name": "com.promise.healthcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkpKBh72Pju5FLtXnLqvDLR9Rw4Pq_ayA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450917465827:android:bd1774c25361ae606ccfd6",
+        "android_client_info": {
+          "package_name": "com.promise.isoil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkpKBh72Pju5FLtXnLqvDLR9Rw4Pq_ayA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450917465827:android:61d7c2251a2e074a6ccfd6",
+        "android_client_info": {
+          "package_name": "com.promise.tonmoyfarm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkpKBh72Pju5FLtXnLqvDLR9Rw4Pq_ayA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

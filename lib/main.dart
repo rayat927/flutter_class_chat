@@ -1,10 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_chat_app/pages/ChatList.dart';
 import 'package:flutter_class_chat_app/pages/ChatThread.dart';
 import 'package:flutter_class_chat_app/pages/Login.dart';
 import 'package:flutter_class_chat_app/pages/Registration.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
