@@ -24,6 +24,24 @@ class _NotesState extends State<Notes> {
 
   List notes = [];
 
+  // Future<Uri> uploadPic() async {
+  //
+  //   //Get the file from the image picker and store it
+  //   File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  //
+  //   //Create a reference to the location you want to upload to in firebase
+  //   StorageReference reference = _storage.ref().child("images/");
+  //
+  //   //Upload the file to firebase
+  //   StorageUploadTask uploadTask = reference.putFile(file);
+  //
+  //   // Waits till the file is uploaded then stores the download url
+  //   Uri location = (await uploadTask.future).downloadUrl;
+  //
+  //   //returns the download url
+  //   return location;
+  // }
+
   void getNotes() async{
     var snapshots = await db.collection('notes').get();
 

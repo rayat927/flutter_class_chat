@@ -68,6 +68,38 @@ class _LoginState extends State<Login> {
 
     }
   }
+  //
+  // void verifyUserPhoneNumber() {
+  //   auth.verifyPhoneNumber(
+  //     phoneNumber: userNumber,
+  //     verificationCompleted: (PhoneAuthCredential credential) async {
+  //       await auth.signInWithCredential(credential).then(
+  //             (value) => print('Logged In Successfully'),
+  //       );
+  //     },
+  //     verificationFailed: (FirebaseAuthException e) {
+  //       print(e.message);
+  //     },
+  //     codeSent: (String verificationId, int? resendToken) {
+  //       receivedID = verificationId;
+  //       otpFieldVisibility = true;
+  //       setState(() {});
+  //     },
+  //     codeAutoRetrievalTimeout: (String verificationId) {
+  //       print('TimeOut');
+  //     },
+  //   );
+  // }
+  //
+  // Future<void> verifyOTPCode() async {
+  //   PhoneAuthCredential credential = PhoneAuthProvider.credential(
+  //     verificationId: receivedID,
+  //     smsCode: otpController.text,
+  //   );
+  //   await auth
+  //       .signInWithCredential(credential)
+  //       .then((value) => print('User Login In Successful'));
+  // }
 
   @override
   void initState() {
