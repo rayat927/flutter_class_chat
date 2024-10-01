@@ -3,6 +3,8 @@
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_chat_app/components/CustomTextField.dart';
@@ -11,7 +13,7 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
-class ChatThread extends StatefulWidget {
+class ChatThread extends StatefulWidget  {
   String? user_id;
 
   ChatThread({super.key, this.user_id});
@@ -27,6 +29,10 @@ class _ChatThreadState extends State<ChatThread> {
   TextEditingController message = TextEditingController();
 
   List chats = [];
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
 
 
@@ -79,22 +85,29 @@ var jsondata = jsonDecode(res.body);
   }
 
   void send_message() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//
+//     String? user_id = prefs.getString('user_id');
+//     socketInstance.emit('send_message', jsonEncode({'content': message.text, 'receiverChatID': '${widget.user_id}', 'senderChatID': user_id}));
+// if(this.mounted){
+//   setState(() {
+//     chats.add(
+//         Chat(
+//             from: user_id,
+//             to: '${widget.user_id}',
+//             message: message.text
+//         )
+//     );
+//   });
+// }
 
-    String? user_id = prefs.getString('user_id');
-    socketInstance.emit('send_message', jsonEncode({'content': message.text, 'receiverChatID': '${widget.user_id}', 'senderChatID': user_id}));
-if(this.mounted){
-  setState(() {
-    chats.add(
-        Chat(
-            from: user_id,
-            to: '${widget.user_id}',
-            message: message.text
-        )
-    );
-  });
-}
 
+await db.collection('chats').add({
+  'senderId': auth.currentUser!.uid,
+  'receiverId': widget.user_id,
+  'message': message.text,
+  'timestamp': FieldValue.serverTimestamp()
+});
 
 
   }
@@ -103,8 +116,8 @@ if(this.mounted){
   void initState() {
     // TODO: implement initState
 
-    connect();
-    getChats();
+    // connect();
+    // getChats();
 
 
     super.initState();
@@ -117,26 +130,48 @@ if(this.mounted){
           title: Text('Chat'),
         ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: chats.map((chat) {
-            return Align(
-              alignment: chat.from == '${widget.user_id}' ? Alignment.centerLeft : Alignment.centerRight,
-              child: Container(
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('chats')
+            .where(Filter.or(Filter('senderId', isEqualTo: widget.user_id), Filter('receiverId', isEqualTo: widget.user_id)))
+            .orderBy('timestamp', descending: false)
+            .snapshots()
+            ,
+          builder: (context, snapshot) {
 
-                constraints: BoxConstraints( maxWidth: 200),
-                margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                decoration: BoxDecoration(
-                  color: chat.from == '${widget.user_id}' ? Colors.grey : Colors.blue[200],
-                  borderRadius: BorderRadius.circular(20)
-                ),
-                child: Text(
-                  '${chat.message}'
-                ),
-              ),
+            if (snapshot.hasError) {
+              throw snapshot.error!;
+              // return Center(
+              //   child: Text('Error: ${snapshot.error}'),
+              // );
+            }
+
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: snapshot.data!.docs.map((chat) {
+                return Align(
+                  alignment: chat['senderId'] == '${widget.user_id}' ? Alignment.centerLeft : Alignment.centerRight,
+                  child: Container(
+
+                    constraints: BoxConstraints( maxWidth: 200),
+                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: chat['senderId'] == '${widget.user_id}' ? Colors.grey : Colors.blue[200],
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Text(
+                      '${chat['message']}'
+                    ),
+                  ),
+                );
+              }).toList(),
             );
-          }).toList(),
+          }
         ),
       ),
       bottomSheet: Container(
